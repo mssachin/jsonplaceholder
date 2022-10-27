@@ -6,7 +6,7 @@ import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
 import responseobjects.Comment;
-import tasks.FilterComments;
+import tasks.FilterResource;
 import tasks.ViewContent;
 
 import java.util.Arrays;
@@ -32,8 +32,8 @@ public class CommentsSteps {
     public void i_query_for_all_pertinent_to_post_with_query_parameter(String postId) {
         Map<String, String> queryParams = new HashMap<>();
         queryParams.put("postId", postId);
-        FilterComments filterComments = new FilterComments();
-        viewCommentsResponse = filterComments.pertinentToAPost(queryParams, Resources.COMMENTS.getValue());
+        FilterResource filterResource = new FilterResource();
+        viewCommentsResponse = filterResource.pertinentToAPost(queryParams, Resources.COMMENTS.getValue());
 
     }
 

@@ -155,9 +155,9 @@ public class CommonSteps {
 
     @When("I update a post of mine")
     public void i_update_a_post_of_mine(DataTable postDetails) {
-        PutPosts putPosts = new PutPosts();
+        PutResource putResource = new PutResource();
         Map<String, String> postDetailsAsMap = postDetails.asMap();
-        makePutRequestResponse = putPosts.inTheNetwork(Resources.POSTS.getValue() + "/" + postDetailsAsMap.get("id"), postDetailsAsMap);
+        makePutRequestResponse = putResource.inTheNetwork(Resources.POSTS.getValue() + "/" + postDetailsAsMap.get("id"), postDetailsAsMap);
     }
 
     @Then("The post is successfully updated")
@@ -172,9 +172,9 @@ public class CommonSteps {
 
     @When("I edit a post of mine")
     public void i_patch_a_post_of_mine(DataTable postDetails) {
-        UpdatePosts updatePosts = new UpdatePosts();
+        PatchResource patchResource = new PatchResource();
         Map<String, String> postDetailsAsMap = postDetails.asMap();
-        makePutRequestResponse = updatePosts.inTheNetwork(Resources.POSTS.getValue() + "/" + postDetailsAsMap.get("id"), postDetailsAsMap);
+        makePutRequestResponse = patchResource.inTheNetwork(Resources.POSTS.getValue() + "/" + postDetailsAsMap.get("id"), postDetailsAsMap);
     }
 
     @When("I delete {string} {string}")
