@@ -7,7 +7,7 @@ import io.restassured.response.Response;
 import responseobjects.Album;
 import responseobjects.Photo;
 import responseobjects.Todo;
-import tasks.ViewContent;
+import tasks.ViewResource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -16,11 +16,11 @@ public class NestedObjectsSteps {
 
     @When("I query for all {string} in {string} {string}")
     public void i_query_for_all_in_album(String nestedResource, String resource, String objectId) {
-        ViewContent viewContent = new ViewContent();
+        ViewResource viewResource = new ViewResource();
         if (resource.equalsIgnoreCase(Resource.ALBUM.getSingle())) {
-            nestedObjectsResponse = viewContent.inTheNetwork(Resource.ALBUM.getMultiple(), objectId, nestedResource);
+            nestedObjectsResponse = viewResource.inTheNetwork(Resource.ALBUM.getMultiple(), objectId, nestedResource);
         } else if (resource.equalsIgnoreCase(Resource.USER.getSingle())) {
-            nestedObjectsResponse = viewContent.inTheNetwork(Resource.USER.getMultiple(), objectId, nestedResource);
+            nestedObjectsResponse = viewResource.inTheNetwork(Resource.USER.getMultiple(), objectId, nestedResource);
         }
     }
 

@@ -32,12 +32,12 @@ public class CommonSteps {
 
     @When("I query for all {string} in the network")
     public void i_query_for_all_in_the_network(String path) {
-        ViewContent viewContent = new ViewContent();
+        ViewResource viewResource = new ViewResource();
         switch (path) {
-            case "posts" -> scenarioResponse = viewContent.inTheNetwork(Resource.POST.getMultiple());
-            case "albums" -> scenarioResponse = viewContent.inTheNetwork(Resource.ALBUM.getMultiple());
-            case "photos" -> scenarioResponse = viewContent.inTheNetwork(Resource.PHOTO.getMultiple());
-            case "todos" -> scenarioResponse = viewContent.inTheNetwork(Resource.TODO.getMultiple());
+            case "posts" -> scenarioResponse = viewResource.inTheNetwork(Resource.POST.getMultiple());
+            case "albums" -> scenarioResponse = viewResource.inTheNetwork(Resource.ALBUM.getMultiple());
+            case "photos" -> scenarioResponse = viewResource.inTheNetwork(Resource.PHOTO.getMultiple());
+            case "todos" -> scenarioResponse = viewResource.inTheNetwork(Resource.TODO.getMultiple());
             default -> throw new IllegalArgumentException("Unknown Object");
         }
     }
@@ -90,7 +90,7 @@ public class CommonSteps {
 
     @When("I query for my {string} in the network")
     public void i_query_for_my_in_the_network(String path) {
-        ViewContent posts = new ViewContent();
+        ViewResource posts = new ViewResource();
         scenarioResponse = posts.inTheNetwork(Resource.USER.getMultiple(), scenarioUserId, path);
         myPosts = scenarioResponse
                 .then()
@@ -131,7 +131,7 @@ public class CommonSteps {
 
     @When("I query for a specific post {string}")
     public void i_query_for_a_specific_post(String postId) {
-        ViewContent posts = new ViewContent();
+        ViewResource posts = new ViewResource();
         queryResourceRequestResponse = posts.inTheNetwork(Resource.POST.getMultiple(), postId);
     }
 

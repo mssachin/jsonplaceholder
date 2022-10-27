@@ -7,7 +7,7 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
 import responseobjects.Comment;
 import tasks.FilterResource;
-import tasks.ViewContent;
+import tasks.ViewResource;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -18,7 +18,7 @@ public class CommentsSteps {
 
     @When("I query for all {string} pertinent to post {string}")
     public void i_query_for_all_pertinent_to_a_post(String resource, String postId) {
-        ViewContent viewComments = new ViewContent();
+        ViewResource viewComments = new ViewResource();
         viewCommentsResponse = viewComments.inTheNetwork(Resource.POST.getMultiple(), postId, resource);
     }
 
