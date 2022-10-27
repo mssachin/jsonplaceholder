@@ -3,7 +3,6 @@ Feature: User Can Operate on Posts
   I should be able to operate on posts
   So that I can engage with the content of the network
 
-
   Scenario: Superuser Can Query for All Posts in the Network
     Given I am a "Superuser"
     When I query for all "posts" in the network
@@ -60,23 +59,21 @@ Feature: User Can Operate on Posts
     When I query for a specific post "1000000"
     Then I validate the post is not available
 
-
   Scenario: User can Update a Post
     Given I am "Bret"
     When I update a post of mine
-      | id     | 1            |
-      | title  | update title |
-      | body   | update body  |
+      | id    | 1            |
+      | title | update title |
+      | body  | update body  |
     Then The post is successfully updated
 
   Scenario: User cannot Update a Non-Existing Post
     Given I am "Bret"
     When I update a post of mine
-      | id     | 121          |
-      | title  | update title |
-      | body   | update body  |
+      | id    | 121          |
+      | title | update title |
+      | body  | update body  |
     Then The get an error response
-
 
   Scenario: User can Edit a Post
     Given I am "Bret"

@@ -1,8 +1,7 @@
 Feature: User Can View Todos
   As a user of the application
-  I should be able to view todos
+  I should be able to operate on todos
   So that I can organize myself
-
 
   Scenario: Superuser Can View All Todos
     Given I am a "Superuser"

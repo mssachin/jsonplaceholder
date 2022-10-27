@@ -1,8 +1,7 @@
 Feature: User Can View Photos
   As a user of the social network
-  I should be able to view photos
+  I should be able to operate on photos
   So that I can engage with the other users of the network
-
 
   Scenario: Superuser Can View All Photos in the Network
     Given I am a "Superuser"
@@ -13,7 +12,6 @@ Feature: User Can View Photos
     Given I am a "Superuser"
     When I query for all "photos" in "album" "1"
     Then I validate there are a total of "50" "photos" inside
-
 
   Scenario: User Attempts to Add a Photo
     Given I am "Bret"
