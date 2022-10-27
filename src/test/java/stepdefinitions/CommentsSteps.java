@@ -7,7 +7,7 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
 import responseobjects.Comment;
 import tasks.FilterComments;
-import tasks.ViewComments;
+import tasks.ViewContent;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -18,8 +18,8 @@ public class CommentsSteps {
 
     @When("I query for all {string} pertinent to post {string}")
     public void i_query_for_all_pertinent_to_a_post(String resource, String postId) {
-        ViewComments viewComments = new ViewComments();
-        viewCommentsResponse = viewComments.pertinentToAPost(Resources.POSTS.getValue(), postId, resource);
+        ViewContent viewContent = new ViewContent();
+        viewCommentsResponse = viewContent.inTheNetwork(Resources.POSTS.getValue(), postId, resource);
     }
 
     @Then("I validate that I can only view comments for post {string}")
