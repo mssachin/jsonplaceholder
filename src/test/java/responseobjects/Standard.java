@@ -1,6 +1,6 @@
 package responseobjects;
 
-public class StandardResponse {
+public class Standard {
     private String id;
 
     public String getId() {

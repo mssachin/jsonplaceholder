@@ -126,7 +126,7 @@ public class CommonSteps {
                 then()
                 .statusCode(201)
                 .extract()
-                .as(PostCreationResponse.class).getId();
+                .as(Standard.class).getId();
         assertNotNull(postId);
     }
 
@@ -208,7 +208,7 @@ public class CommonSteps {
 
     @Then("I get success response")
     public void i_get_success_response() {
-        StandardResponse standardResponse = postResourceRequestResponse.then().statusCode(201).extract().as(StandardResponse.class);
-        assertNotNull(standardResponse.getId());
+        Standard standard = postResourceRequestResponse.then().statusCode(201).extract().as(Standard.class);
+        assertNotNull(standard.getId());
     }
 }
