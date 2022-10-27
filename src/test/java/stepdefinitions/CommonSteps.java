@@ -21,10 +21,10 @@ public class CommonSteps {
     private String scenarioUserId;
     private Response scenarioResponse;
     private Post[] myPosts;
-    private Response makePostRequestResponse;
-    private Response makePutRequestResponse;
-    private Response queryPostRequestResponse;
-    private Response deleteResourceResponse;
+    private Response postResourceRequestResponse;
+    private Response editResourceRequestResponse;
+    private Response queryResourceRequestResponse;
+    private Response deleteResourceRequestResponse;
 
     @Given("I am a {string}")
     public void i_am_a(String user) {
@@ -117,12 +117,12 @@ public class CommonSteps {
         newPost.setTitle(postDetailsAsMap.get("title"));
         newPost.setBody(postDetailsAsMap.get("body"));
         PostAResource postAResource = new PostAResource();
-        makePostRequestResponse = postAResource.inTheNetwork(Resources.POSTS.getValue(), newPost);
+        postResourceRequestResponse = postAResource.inTheNetwork(Resources.POSTS.getValue(), newPost);
     }
 
     @Then("I validate that post is successful")
     public void i_validate_that_post_is_successful() {
-        String postId = makePostRequestResponse.
+        String postId = postResourceRequestResponse.
                 then()
                 .statusCode(201)
                 .extract()
@@ -133,7 +133,7 @@ public class CommonSteps {
     @When("I query for a specific post {string}")
     public void i_query_for_a_specific_post(String postId) {
         ViewContent posts = new ViewContent();
-        queryPostRequestResponse = posts.inTheNetwork(Resources.POSTS.getValue(), postId);
+        queryResourceRequestResponse = posts.inTheNetwork(Resources.POSTS.getValue(), postId);
     }
 
     @Then("I validate the post details")
@@ -144,44 +144,48 @@ public class CommonSteps {
         expectedPost.setId(postDetailsAsMap.get("id"));
         expectedPost.setTitle(postDetailsAsMap.get("title"));
         expectedPost.setBody(postDetailsAsMap.get("body"));
-        Post actualPost = queryPostRequestResponse.then().statusCode(200).extract().as(Post.class);
+        Post actualPost = queryResourceRequestResponse.then().statusCode(200).extract().as(Post.class);
         assertEquals(expectedPost, actualPost);
     }
 
     @Then("I validate the post is not available")
     public void i_validate_the_post_is_not_available() {
-        queryPostRequestResponse.then().statusCode(404);
+        queryResourceRequestResponse.then().statusCode(404);
     }
 
     @When("I update a post of mine")
     public void i_update_a_post_of_mine(DataTable postDetails) {
         PutResource putResource = new PutResource();
         Map<String, String> postDetailsAsMap = postDetails.asMap();
-        makePutRequestResponse = putResource.inTheNetwork(Resources.POSTS.getValue() + "/" + postDetailsAsMap.get("id"), postDetailsAsMap);
+        Map<String, String> postDetailsAsMapMutated = new HashMap<>(postDetailsAsMap);
+        postDetailsAsMapMutated.put("userId", scenarioUserId);
+        editResourceRequestResponse = putResource.inTheNetwork(Resources.POSTS.getValue() + "/" + postDetailsAsMapMutated.get("id"), postDetailsAsMapMutated);
     }
 
     @Then("The post is successfully updated")
     public void the_post_is_successfully_updated() {
-        makePutRequestResponse.then().statusCode(200);
+        editResourceRequestResponse.then().statusCode(200);
     }
 
     @Then("The get an error response")
     public void the_get_a_valid_error_response() {
-        makePutRequestResponse.then().statusCode(500);
+        editResourceRequestResponse.then().statusCode(500);
     }
 
     @When("I edit a post of mine")
     public void i_patch_a_post_of_mine(DataTable postDetails) {
         PatchResource patchResource = new PatchResource();
         Map<String, String> postDetailsAsMap = postDetails.asMap();
-        makePutRequestResponse = patchResource.inTheNetwork(Resources.POSTS.getValue() + "/" + postDetailsAsMap.get("id"), postDetailsAsMap);
+        Map<String, String> postDetailsAsMapMutated = new HashMap<>(postDetailsAsMap);
+        postDetailsAsMapMutated.put("userId", scenarioUserId);
+        editResourceRequestResponse = patchResource.inTheNetwork(Resources.POSTS.getValue() + "/" + postDetailsAsMapMutated.get("id"), postDetailsAsMapMutated);
     }
 
     @When("I delete {string} {string}")
     public void i_delete_a_post(String resource, String resourceId) {
         DeleteResource deleteResource = new DeleteResource();
         if (resource.equalsIgnoreCase(Resource.POST.getValue())) {
-            deleteResourceResponse = deleteResource.fromTheNetwork(Resources.POSTS.getValue(), resourceId);
+            deleteResourceRequestResponse = deleteResource.fromTheNetwork(Resources.POSTS.getValue(), resourceId);
         } else {
             throw new IllegalArgumentException("Unknown Object");
         }
@@ -189,7 +193,7 @@ public class CommonSteps {
 
     @Then("I validate the post is successfully deleted")
     public void i_validate_the_post_is_successfully_deleted() {
-        deleteResourceResponse.then().statusCode(200);
+        deleteResourceRequestResponse.then().statusCode(200);
     }
 
     @When("I attempt to post {string}")
@@ -198,13 +202,13 @@ public class CommonSteps {
         Map<String, String> postDetailsAsMapClone = new HashMap<>(postDetailsAsMap);
         postDetailsAsMapClone.put("userId", scenarioUserId);
         PostAResource postAResource = new PostAResource();
-        makePostRequestResponse = postAResource.inTheNetwork(resource, postDetailsAsMapClone);
+        postResourceRequestResponse = postAResource.inTheNetwork(resource, postDetailsAsMapClone);
 
     }
 
     @Then("I get success response")
     public void i_get_success_response() {
-        StandardResponse standardResponse = makePostRequestResponse.then().statusCode(201).extract().as(StandardResponse.class);
+        StandardResponse standardResponse = postResourceRequestResponse.then().statusCode(201).extract().as(StandardResponse.class);
         assertNotNull(standardResponse.getId());
     }
 }

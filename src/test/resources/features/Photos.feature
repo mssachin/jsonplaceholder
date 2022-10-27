@@ -10,7 +10,7 @@ Feature: User Can View Photos
     Then I validate there are a total of "5000" "photos"
 
   Scenario: Superuser Can View All Photos in an Album
-    Given I am "Bret"
+    Given I am a "Superuser"
     When I query for all "photos" in "album" "1"
     Then I validate there are a total of "50" "photos" inside
 

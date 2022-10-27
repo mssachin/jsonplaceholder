@@ -10,7 +10,7 @@ Feature: User Can Operate with Comments
     Then I validate that I can only view comments for post "1"
 
   Scenario: User can Filter Comments on a Post
-    Given I am "Bret"
+    Given I am a "Superuser"
     When I filter comments pertinent to post "1"
     Then I validate that I can only view comments for post "1"
 

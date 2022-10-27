@@ -64,7 +64,6 @@ Feature: User Can Operate on Posts
   Scenario: User can Update a Post
     Given I am "Bret"
     When I update a post of mine
-      | userId | 1            |
       | id     | 1            |
       | title  | update title |
       | body   | update body  |
@@ -73,7 +72,6 @@ Feature: User Can Operate on Posts
   Scenario: User cannot Update a Non-Existing Post
     Given I am "Bret"
     When I update a post of mine
-      | userId | 1            |
       | id     | 121          |
       | title  | update title |
       | body   | update body  |
