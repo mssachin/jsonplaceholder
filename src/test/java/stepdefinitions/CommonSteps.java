@@ -177,7 +177,7 @@ public class CommonSteps {
         makePutRequestResponse = updatePosts.inTheNetwork(Resources.POSTS.getValue() + "/" + postDetailsAsMap.get("id"), postDetailsAsMap);
     }
 
-    @When("I delete a {string} {string}")
+    @When("I delete {string} {string}")
     public void i_delete_a_post(String resource, String resourceId) {
         DeleteResource deleteResource = new DeleteResource();
         if (resource.equalsIgnoreCase(Resource.POST.getValue())) {

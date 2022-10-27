@@ -101,5 +101,5 @@ Feature: User Can Operate on Posts
 
   Scenario: User can Delete a Post
     Given I am a "Superuser"
-    When I delete a "post" "1"
+    When I delete "post" "1"
     Then I validate the post is successfully deleted
