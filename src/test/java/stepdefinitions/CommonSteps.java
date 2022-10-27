@@ -39,7 +39,7 @@ public class CommonSteps {
             case "albums" -> scenarioResponse = viewContent.inTheNetwork(Resources.ALBUMS.getValue());
             case "photos" -> scenarioResponse = viewContent.inTheNetwork(Resources.PHOTOS.getValue());
             case "todos" -> scenarioResponse = viewContent.inTheNetwork(Resources.TODOS.getValue());
-            default -> throw new IllegalArgumentException("Invalid Object");
+            default -> throw new IllegalArgumentException("Unknown Object");
         }
     }
 
@@ -78,7 +78,7 @@ public class CommonSteps {
                         .as(Todo[].class);
                 assertEquals(Integer.parseInt(numberOfObjects), allTodos.length);
             }
-            default -> throw new IllegalArgumentException("Invalid Object");
+            default -> throw new IllegalArgumentException("Unknown Object");
         }
 
     }
