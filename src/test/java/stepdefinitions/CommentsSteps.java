@@ -19,7 +19,7 @@ public class CommentsSteps {
     @When("I query for all {string} pertinent to post {string}")
     public void i_query_for_all_pertinent_to_a_post(String resource, String postId) {
         ViewContent viewComments = new ViewContent();
-        viewCommentsResponse = viewComments.inTheNetwork(Resources.POSTS.getValue(), postId, resource);
+        viewCommentsResponse = viewComments.inTheNetwork(Resources.POSTS.getPlural(), postId, resource);
     }
 
     @Then("I validate that I can only view comments for post {string}")
@@ -33,7 +33,7 @@ public class CommentsSteps {
         Map<String, String> queryParams = new HashMap<>();
         queryParams.put("postId", postId);
         FilterResource filterResource = new FilterResource();
-        viewCommentsResponse = filterResource.pertinentToAPost(queryParams, Resources.COMMENTS.getValue());
+        viewCommentsResponse = filterResource.pertinentToAPost(queryParams, Resources.COMMENTS.getPlural());
 
     }
 

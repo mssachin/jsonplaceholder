@@ -1,22 +1,26 @@
 package core;
 
 public enum Resources {
-    POSTS("posts"),
-    COMMENTS("comments"),
-    ALBUMS("albums"),
-    PHOTOS("photos"),
-    USERS("users"),
-    TODOS("todos");
+    POSTS("posts", "post"),
+    COMMENTS("comments", "comment"),
+    ALBUMS("albums", "album"),
+    PHOTOS("photos", "photo"),
+    USERS("users", "user"),
+    TODOS("todos", "todo");
 
-    private final String value;
+    private final String plural;
+    private final String singular;
 
-    Resources(final String value) {
-        this.value = value;
+    Resources(String plural, String singular) {
+        this.plural = plural;
+        this.singular = singular;
     }
 
-    public String getValue() {
-        return value;
+    public String getPlural() {
+        return plural;
     }
 
-
+    public String getSingular() {
+        return singular;
+    }
 }

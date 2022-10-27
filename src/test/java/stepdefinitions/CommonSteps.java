@@ -1,6 +1,5 @@
 package stepdefinitions;
 
-import core.Resource;
 import core.Resources;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
@@ -35,10 +34,10 @@ public class CommonSteps {
     public void i_query_for_all_in_the_network(String path) {
         ViewContent viewContent = new ViewContent();
         switch (path) {
-            case "posts" -> scenarioResponse = viewContent.inTheNetwork(Resources.POSTS.getValue());
-            case "albums" -> scenarioResponse = viewContent.inTheNetwork(Resources.ALBUMS.getValue());
-            case "photos" -> scenarioResponse = viewContent.inTheNetwork(Resources.PHOTOS.getValue());
-            case "todos" -> scenarioResponse = viewContent.inTheNetwork(Resources.TODOS.getValue());
+            case "posts" -> scenarioResponse = viewContent.inTheNetwork(Resources.POSTS.getPlural());
+            case "albums" -> scenarioResponse = viewContent.inTheNetwork(Resources.ALBUMS.getPlural());
+            case "photos" -> scenarioResponse = viewContent.inTheNetwork(Resources.PHOTOS.getPlural());
+            case "todos" -> scenarioResponse = viewContent.inTheNetwork(Resources.TODOS.getPlural());
             default -> throw new IllegalArgumentException("Unknown Object");
         }
     }
@@ -92,7 +91,7 @@ public class CommonSteps {
     @When("I query for my {string} in the network")
     public void i_query_for_my_in_the_network(String path) {
         ViewContent posts = new ViewContent();
-        scenarioResponse = posts.inTheNetwork(Resources.USERS.getValue(), scenarioUserId, path);
+        scenarioResponse = posts.inTheNetwork(Resources.USERS.getPlural(), scenarioUserId, path);
         myPosts = scenarioResponse
                 .then()
                 .statusCode(200)
@@ -117,7 +116,7 @@ public class CommonSteps {
         newPost.setTitle(postDetailsAsMap.get("title"));
         newPost.setBody(postDetailsAsMap.get("body"));
         PostAResource postAResource = new PostAResource();
-        postResourceRequestResponse = postAResource.inTheNetwork(Resources.POSTS.getValue(), newPost);
+        postResourceRequestResponse = postAResource.inTheNetwork(Resources.POSTS.getPlural(), newPost);
     }
 
     @Then("I validate that post is successful")
@@ -133,7 +132,7 @@ public class CommonSteps {
     @When("I query for a specific post {string}")
     public void i_query_for_a_specific_post(String postId) {
         ViewContent posts = new ViewContent();
-        queryResourceRequestResponse = posts.inTheNetwork(Resources.POSTS.getValue(), postId);
+        queryResourceRequestResponse = posts.inTheNetwork(Resources.POSTS.getPlural(), postId);
     }
 
     @Then("I validate the post details")
@@ -159,7 +158,7 @@ public class CommonSteps {
         Map<String, String> postDetailsAsMap = postDetails.asMap();
         Map<String, String> postDetailsAsMapMutated = new HashMap<>(postDetailsAsMap);
         postDetailsAsMapMutated.put("userId", scenarioUserId);
-        editResourceRequestResponse = putResource.inTheNetwork(Resources.POSTS.getValue() + "/" + postDetailsAsMapMutated.get("id"), postDetailsAsMapMutated);
+        editResourceRequestResponse = putResource.inTheNetwork(Resources.POSTS.getPlural() + "/" + postDetailsAsMapMutated.get("id"), postDetailsAsMapMutated);
     }
 
     @Then("The post is successfully updated")
@@ -178,14 +177,14 @@ public class CommonSteps {
         Map<String, String> postDetailsAsMap = postDetails.asMap();
         Map<String, String> postDetailsAsMapMutated = new HashMap<>(postDetailsAsMap);
         postDetailsAsMapMutated.put("userId", scenarioUserId);
-        editResourceRequestResponse = patchResource.inTheNetwork(Resources.POSTS.getValue() + "/" + postDetailsAsMapMutated.get("id"), postDetailsAsMapMutated);
+        editResourceRequestResponse = patchResource.inTheNetwork(Resources.POSTS.getPlural() + "/" + postDetailsAsMapMutated.get("id"), postDetailsAsMapMutated);
     }
 
     @When("I delete {string} {string}")
     public void i_delete_a_post(String resource, String resourceId) {
         DeleteResource deleteResource = new DeleteResource();
-        if (resource.equalsIgnoreCase(Resource.POST.getValue())) {
-            deleteResourceRequestResponse = deleteResource.fromTheNetwork(Resources.POSTS.getValue(), resourceId);
+        if (resource.equalsIgnoreCase(Resources.POSTS.getSingular())) {
+            deleteResourceRequestResponse = deleteResource.fromTheNetwork(Resources.POSTS.getPlural(), resourceId);
         } else {
             throw new IllegalArgumentException("Unknown Object");
         }
