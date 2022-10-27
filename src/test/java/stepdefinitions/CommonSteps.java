@@ -115,8 +115,8 @@ public class CommonSteps {
         newPost.setUserId(scenarioUserId);
         newPost.setTitle(postDetailsAsMap.get("title"));
         newPost.setBody(postDetailsAsMap.get("body"));
-        PostAResource postAResource = new PostAResource();
-        postResourceRequestResponse = postAResource.inTheNetwork(Resource.POST.getMultiple(), newPost);
+        PostResource postResource = new PostResource();
+        postResourceRequestResponse = postResource.inTheNetwork(Resource.POST.getMultiple(), newPost);
     }
 
     @Then("I validate that post is successful")
@@ -200,8 +200,8 @@ public class CommonSteps {
         Map<String, String> postDetailsAsMap = postDetails.asMap();
         Map<String, String> postDetailsAsMapClone = new HashMap<>(postDetailsAsMap);
         postDetailsAsMapClone.put("userId", scenarioUserId);
-        PostAResource postAResource = new PostAResource();
-        postResourceRequestResponse = postAResource.inTheNetwork(resource, postDetailsAsMapClone);
+        PostResource postResource = new PostResource();
+        postResourceRequestResponse = postResource.inTheNetwork(resource, postDetailsAsMapClone);
 
     }
 
